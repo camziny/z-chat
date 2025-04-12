@@ -28,19 +28,21 @@ export function ChatMessage({ message, onSuggestedQuestionClick }: ChatMessagePr
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="flex justify-center my-3 sm:my-4"
+          className="flex justify-center my-2 sm:my-3"
         >
-          <div className="bg-zinc-900/80 border border-zinc-800/60 rounded-xl p-2.5 sm:p-3 shadow-lg max-w-[95%] sm:max-w-[90%]">
-            <div className="flex items-center gap-2 mb-2">
-              <Lightbulb className="h-4 w-4 text-amber-400/80" />
-              <span className="text-sm font-medium text-zinc-300">Suggested questions:</span>
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg shadow-md w-[85%] sm:w-auto sm:min-w-[300px] sm:max-w-[450px]">
+            <div className="p-2 border-b border-zinc-800">
+              <div className="flex items-center gap-1.5">
+                <Lightbulb className="h-3.5 w-3.5 text-amber-400" />
+                <span className="text-xs font-medium text-zinc-200">Suggested Questions</span>
+              </div>
             </div>
-            <div className="flex flex-col gap-1.5 sm:gap-2">
+            <div className="p-2">
               {questions.map((question, index) => (
                 <Button
                   key={index}
                   variant="ghost"
-                  className="h-auto py-1.5 sm:py-2 px-3 justify-start text-left text-xs sm:text-sm hover:bg-zinc-800 text-zinc-300 hover:text-white"
+                  className="h-auto w-full text-left justify-start py-1.5 px-2 text-xs hover:bg-zinc-800 text-zinc-300 hover:text-white rounded-md mb-1 last:mb-0"
                   onClick={() => onSuggestedQuestionClick?.(question)}
                 >
                   {question.trim()}
@@ -58,10 +60,10 @@ export function ChatMessage({ message, onSuggestedQuestionClick }: ChatMessagePr
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4 sm:mb-6`}
+      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3 sm:mb-4`}
     >
-      <div className={`flex items-start gap-2 sm:gap-3 max-w-[85%] sm:max-w-[80%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-        <div className={`h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-full overflow-hidden border border-zinc-800 ${!isUser && 'ring-1 ring-zinc-700'} flex items-center justify-center bg-zinc-900`}>
+      <div className={`flex items-start gap-1.5 sm:gap-2 max-w-[90%] sm:max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+        <div className={`h-6 w-6 sm:h-8 sm:w-8 shrink-0 rounded-full overflow-hidden border border-zinc-800 ${!isUser && 'ring-1 ring-zinc-700'} flex items-center justify-center bg-zinc-900`}>
           {isUser ? (
             <img 
               src="/avatars/user.png" 
@@ -90,15 +92,15 @@ export function ChatMessage({ message, onSuggestedQuestionClick }: ChatMessagePr
         
         <div className="flex flex-col">
           <div 
-            className={`px-3 py-2 sm:px-4 sm:py-3 rounded-2xl shadow-sm ${
+            className={`px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl shadow-sm ${
               isUser 
                 ? 'bg-zinc-800 text-white rounded-tr-none' 
                 : 'bg-black border border-zinc-800 text-zinc-100 rounded-tl-none'
             }`}
           >
-            <p className="text-xs sm:text-sm leading-relaxed">{message.content}</p>
+            <p className="text-xs leading-relaxed">{message.content}</p>
           </div>
-          <span className={`text-[10px] sm:text-xs text-zinc-500 mt-1 ${isUser ? 'text-right' : 'text-left'}`}>
+          <span className={`text-[9px] sm:text-[10px] text-zinc-500 mt-0.5 sm:mt-1 ${isUser ? 'text-right' : 'text-left'}`}>
             {isUser ? 'You' : character?.name} • {formattedTime}
           </span>
         </div>

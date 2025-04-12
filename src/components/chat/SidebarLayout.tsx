@@ -102,9 +102,9 @@ export function SidebarLayout({
             exit="collapsed"
           >
             <div className="w-[280px] h-full flex flex-col overflow-x-hidden">
-              <div className="h-14 px-4 flex items-center justify-between">
-                <h2 className="text-lg font-medium text-white flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 mr-2 text-zinc-400">
+              <div className="h-12 sm:h-14 px-3 sm:px-4 flex items-center justify-between">
+                <h2 className="text-base sm:text-lg font-medium text-white flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-zinc-400">
                     <circle cx="12" cy="8" r="5" />
                     <path d="M20 21a8 8 0 0 0-16 0" />
                   </svg>
@@ -124,16 +124,16 @@ export function SidebarLayout({
                     variant="ghost" 
                     size="icon" 
                     onClick={toggleMobileMenu}
-                    className="md:hidden hover:bg-zinc-900"
+                    className="md:hidden hover:bg-zinc-900 h-7 w-7 sm:h-8 sm:w-8"
                     aria-label="Close sidebar"
                   >
-                    <ChevronLeft className="h-5 w-5 text-zinc-400" />
+                    <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-400" />
                   </Button>
                 </div>
               </div>
               
               <div 
-                className="p-3 pt-1 space-y-2 overflow-y-auto overflow-x-hidden flex-1"
+                className="p-2 sm:p-3 pt-1 space-y-1.5 sm:space-y-2 overflow-y-auto overflow-x-hidden flex-1"
               >
                 {characters.map((character, index) => {
                   const theme = getCharacterTheme(character.id);
@@ -148,7 +148,7 @@ export function SidebarLayout({
                       animate="visible"
                     >
                       <button
-                        className={`w-full p-3 flex items-center rounded-lg transition-all ${
+                        className={`w-full p-2 sm:p-3 flex items-center rounded-lg transition-all ${
                           isSelected 
                             ? 'bg-zinc-900 ring-1 ring-zinc-700' 
                             : 'hover:bg-zinc-900/50'
@@ -160,7 +160,7 @@ export function SidebarLayout({
                       >
                         <div className="flex items-center flex-1">
                           <div className="relative">
-                            <div className="h-10 w-10 rounded-full overflow-hidden border border-zinc-800 flex items-center justify-center bg-zinc-900">
+                            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full overflow-hidden border border-zinc-800 flex items-center justify-center bg-zinc-900">
                               <img 
                                 src={character.avatar} 
                                 alt={character.name}
@@ -171,12 +171,12 @@ export function SidebarLayout({
                               />
                             </div>
                             {isSelected && (
-                              <div className={`absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-gradient-to-r ${theme.primary} ring-1 ring-black`}></div>
+                              <div className={`absolute -bottom-1 -right-1 h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-gradient-to-r ${theme.primary} ring-1 ring-black`}></div>
                             )}
                           </div>
                           <div className="ml-3 text-left">
-                            <div className="text-sm font-medium text-white">{character.name}</div>
-                            <div className="text-xs text-zinc-400 line-clamp-1">{character.description}</div>
+                            <div className="text-xs sm:text-sm font-medium text-white">{character.name}</div>
+                            <div className="text-[10px] sm:text-xs text-zinc-400 line-clamp-1">{character.description}</div>
                           </div>
                         </div>
                       </button>
@@ -249,7 +249,7 @@ export function SidebarLayout({
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-black/60 z-20 md:hidden"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-20 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -261,18 +261,18 @@ export function SidebarLayout({
       </AnimatePresence>
 
       <main className="flex-1 flex flex-col h-full">
-        <div className="md:hidden flex h-14 bg-black border-b border-zinc-800 items-center px-4 sticky top-0 z-10">
+        <div className="md:hidden flex h-12 sm:h-14 bg-black border-b border-zinc-800 items-center px-3 sm:px-4 sticky top-0 z-10">
           <Button 
             variant="ghost" 
             size="icon" 
-            className="hover:bg-zinc-900"
+            className="hover:bg-zinc-900 h-7 w-7 sm:h-8 sm:w-8"
             onClick={toggleMobileMenu}
             aria-label={mobileMenuOpen ? "Close sidebar" : "Open sidebar"}
           >
             {mobileMenuOpen ? (
-              <ChevronLeft className="h-5 w-5 text-zinc-400" />
+              <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-400" />
             ) : (
-              <ChevronRight className="h-5 w-5 text-zinc-400" />
+              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-400" />
             )}
           </Button>
         </div>

@@ -76,8 +76,8 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:gap-3">
-      <div className="flex items-center justify-between mb-1">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-1 sm:gap-2">
+      <div className="flex items-center justify-between">
         {prompts.length > 0 && (
           <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
@@ -85,26 +85,26 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="h-7 sm:h-8 text-xs flex items-center gap-1 px-2 text-zinc-400 hover:text-zinc-300"
+                className="h-6 sm:h-7 text-[10px] sm:text-xs flex items-center gap-1 px-1.5 sm:px-2 text-zinc-400 hover:text-zinc-300"
               >
-                <Lightbulb className="h-3.5 w-3.5 text-amber-400/70" />
+                <Lightbulb className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-400/70" />
                 <span className="hidden sm:inline">Suggested questions</span>
-                <span className="sm:hidden">Suggestions</span>
+                <span className="sm:hidden">Suggested questions</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent 
-              className="w-64 p-2 bg-zinc-900 border-zinc-700 rounded-lg shadow-xl"
+              className="w-64 p-1.5 sm:p-2 bg-zinc-900 border-zinc-700 rounded-lg shadow-xl"
               align="start"
               sideOffset={5}
             >
-              <div className="flex flex-col gap-1">
+              <div className="grid grid-cols-1 gap-1">
                 {prompts.map((prompt, index) => (
                   <Button
                     key={index}
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-auto py-2 justify-start text-left text-sm bg-transparent hover:bg-zinc-800 text-zinc-300"
+                    className="h-auto py-1.5 px-2.5 justify-start text-left text-xs bg-transparent hover:bg-zinc-800 text-zinc-300 w-full rounded-md"
                     onClick={() => handleSuggestedPrompt(prompt)}
                   >
                     {prompt}
@@ -114,7 +114,7 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
             </PopoverContent>
           </Popover>
         )}
-        <span className="text-xs text-zinc-500 mr-1 sm:mr-2">
+        <span className="text-[9px] sm:text-xs text-zinc-500 mr-1 sm:mr-2">
           Shift+Enter for new line
         </span>
       </div>
@@ -125,20 +125,20 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="min-h-[45px] sm:min-h-[80px] pr-12 sm:pr-14 resize-none rounded-xl bg-black border-zinc-800 focus-visible:ring-zinc-700 text-zinc-200 placeholder:text-zinc-500"
+          className="min-h-[40px] sm:min-h-[60px] md:min-h-[80px] pr-10 sm:pr-12 resize-none rounded-xl bg-black border-zinc-800 focus-visible:ring-zinc-700 text-zinc-200 placeholder:text-zinc-500 text-xs sm:text-sm"
           disabled={isLoading}
         />
         
         <Button 
           type="submit" 
           size="icon"
-          className="absolute bottom-2 right-2 h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-zinc-800 text-white shadow-md hover:bg-zinc-700 transition-all duration-300"
+          className="absolute bottom-1.5 right-1.5 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-zinc-800 text-white shadow-md hover:bg-zinc-700 transition-all duration-300"
           disabled={!message.trim() || isLoading}
         >
           {isLoading ? (
-            <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+            <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" />
           ) : (
-            <SendIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+            <SendIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           )}
         </Button>
       </div>
