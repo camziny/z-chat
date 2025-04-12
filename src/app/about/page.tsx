@@ -58,10 +58,6 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
-      
-      <footer className="py-4 border-t border-zinc-800 text-center text-zinc-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} Z Chat</p>
-      </footer>
     </div>
   );
 }
