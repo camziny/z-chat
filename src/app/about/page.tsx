@@ -10,7 +10,7 @@ export default function AboutPage() {
           <div className="mb-8">
             <h2 className="text-3xl font-bold mb-4 text-center bg-gradient-to-r from-zinc-300 to-zinc-500 bg-clip-text text-transparent">What is Z Chat?</h2>
             <p className="text-zinc-300 text-lg leading-relaxed mb-8 text-center">
-              Just me messing around with LLMs and AI
+              Just me practicing this stuff:
             </p>
           </div>
           

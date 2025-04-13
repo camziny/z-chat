@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent, KeyboardEvent } from 'react';
+import { useState, FormEvent, KeyboardEvent, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { SendIcon, Loader2, Lightbulb } from 'lucide-react';
@@ -10,6 +10,25 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+// Simple hook to detect mobile devices
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkIsMobile = () => {
+      const mediaQuery = window.matchMedia('(max-width: 768px)');
+      setIsMobile(mediaQuery.matches);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+  
+  return isMobile;
+};
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -44,6 +63,7 @@ const characterPrompts: Record<string, string[]> = {
 export function ChatInput({ onSend, isLoading = false, selectedCharacter }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -114,9 +134,11 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
             </PopoverContent>
           </Popover>
         )}
-        <span className="text-[9px] sm:text-xs text-zinc-500 mr-1 sm:mr-2">
-          Shift+Enter for new line
-        </span>
+        {!isMobile && (
+          <span className="text-[9px] sm:text-xs text-zinc-500 mr-1 sm:mr-2">
+            Shift+Enter for new line
+          </span>
+        )}
       </div>
       
       <div className="relative">
