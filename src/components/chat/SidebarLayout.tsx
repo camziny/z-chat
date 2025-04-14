@@ -246,6 +246,34 @@ export function SidebarLayout({
         )}
       </AnimatePresence>
 
+      <main className="flex-1 flex flex-col h-full relative">
+        <div className="flex-1 overflow-hidden">
+          {children}
+        </div>
+
+        <AnimatePresence>
+          {!mobileMenuOpen && (
+            <motion.div
+              className="absolute top-0 left-0 z-30 md:hidden h-12 sm:h-14 px-3 sm:px-4 flex items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hover:bg-zinc-900 h-7 w-7 sm:h-8 sm:w-8"
+                onClick={toggleMobileMenu}
+                aria-label="Open sidebar"
+              >
+                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-400" />
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </main>
+
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
@@ -257,34 +285,6 @@ export function SidebarLayout({
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
-        )}
-      </AnimatePresence>
-
-      <main className="flex-1 flex flex-col h-full">
-        <div className="flex-1 overflow-hidden">
-          {children}
-        </div>
-      </main>
-
-      <AnimatePresence>
-        {!mobileMenuOpen && (
-          <motion.div
-            className="fixed top-20 left-2 z-30 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="p-1.5 bg-transparent hover:bg-transparent"
-              onClick={toggleMobileMenu}
-              aria-label="Open sidebar"
-            >
-              <ChevronRight className="h-6 w-6 text-zinc-400" />
-            </Button>
-          </motion.div>
         )}
       </AnimatePresence>
     </div>
