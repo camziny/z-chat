@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent, KeyboardEvent, useEffect } from 'react';
+import { useState, FormEvent, KeyboardEvent, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { SendIcon, Loader2, Lightbulb } from 'lucide-react';
@@ -10,25 +10,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-// Simple hook to detect mobile devices
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkIsMobile = () => {
-      const mediaQuery = window.matchMedia('(max-width: 768px)');
-      setIsMobile(mediaQuery.matches);
-    };
-    
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-    
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
-  
-  return isMobile;
-};
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -41,16 +22,18 @@ const characterPrompts: Record<string, string[]> = {
     "What's your favorite instrument?",
     "What are you thinking about?",
     "What are you studying?",
-    "Which way is east?"
+    "Which way is east?",
   ],
   'butters-stotch': [
     "Sing me a song, Butters",
     "What do you think about Cartman?"
+
   ],
   'dwight-schrute': [
-    "What did you have for lunch?",
-    "Tell me about your beet farm",
-    "What's the best prank to play on Jim?"
+    "How do you feel about Michael Scott?",
+    "Who is the laziest person in the office?",
+    "What's the best prank to play on Jim?",
+    "What kind of car do you drive?",
   ],
   'ted-lasso': [
     "What's your favorite biscuit recipe?",
@@ -63,7 +46,20 @@ const characterPrompts: Record<string, string[]> = {
 export function ChatInput({ onSend, isLoading = false, selectedCharacter }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const isMobile = useIsMobile();
+  const [isMobile, setIsMobile] = useState(false);
+  const mobileCheckRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (mobileCheckRef.current) {
+        const isVisible = window.getComputedStyle(mobileCheckRef.current).display !== 'none';
+        setIsMobile(isVisible);
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -75,6 +71,7 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isMobile) return;
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
@@ -97,6 +94,7 @@ export function ChatInput({ onSend, isLoading = false, selectedCharacter }: Chat
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-1 sm:gap-2">
+      <div ref={mobileCheckRef} className="block md:hidden h-0 w-0 p-0 m-0 overflow-hidden" aria-hidden="true" />
       <div className="flex items-center justify-between">
         {prompts.length > 0 && (
           <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>

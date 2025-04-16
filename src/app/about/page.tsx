@@ -8,9 +8,8 @@ export default function AboutPage() {
       <main className="flex-1 container mx-auto py-16 px-4 max-w-2xl flex items-center justify-center">
         <div className="bg-zinc-900/70 border border-zinc-800 p-10 rounded-2xl shadow-2xl backdrop-blur-sm">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold mb-4 text-center bg-gradient-to-r from-zinc-300 to-zinc-500 bg-clip-text text-transparent">What is Z Chat?</h2>
             <p className="text-zinc-300 text-lg leading-relaxed mb-8 text-center">
-              Just me practicing this stuff:
+              Just practicing this stuff:
             </p>
           </div>
           
