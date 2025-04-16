@@ -121,16 +121,18 @@ export function ChatContainer() {
         "What's your favorite instrument?",
         "What are you thinking about?",
         "What are you studying?",
-        "Which way is east?"
+        "Which way is east?",
       ],
       'butters-stotch': [
         "Sing me a song, Butters",
         "What do you think about Cartman?"
+    
       ],
       'dwight-schrute': [
-        "What did you have for lunch?",
-        "Tell me about your beet farm",
-        "What's the best prank to play on Jim?"
+        "How do you feel about Michael Scott?",
+        "Who is the laziest person in the office?",
+        "What's the best prank to play on Jim?",
+        "What kind of car do you drive?",
       ],
       'ted-lasso': [
         "What's your favorite biscuit recipe?",

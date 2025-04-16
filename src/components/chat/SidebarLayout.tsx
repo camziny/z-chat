@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getCharacterTheme } from '@/lib/chat/character-themes';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
 interface SidebarLayoutProps {
   selectedCharacter: Character | null;
@@ -147,39 +148,44 @@ export function SidebarLayout({
                       initial="hidden"
                       animate="visible"
                     >
-                      <button
-                        className={`w-full p-2 sm:p-3 flex items-center rounded-lg transition-all ${
-                          isSelected 
-                            ? 'bg-zinc-900 ring-1 ring-zinc-700' 
-                            : 'hover:bg-zinc-900/50'
-                        }`}
-                        onClick={() => {
-                          onSelectCharacter(character);
-                          setMobileMenuOpen(false);
-                        }}
-                      >
-                        <div className="flex items-center flex-1">
-                          <div className="relative">
-                            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full overflow-hidden border border-zinc-800 flex items-center justify-center bg-zinc-900">
-                              <img 
-                                src={character.avatar} 
-                                alt={character.name}
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  e.currentTarget.src = `https://api.dicebear.com/7.x/personas/svg?seed=${character.name}`;
-                                }}
-                              />
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            className={`w-full p-2 sm:p-3 flex items-center rounded-lg transition-all ${
+                              isSelected 
+                                ? 'bg-zinc-900 ring-1 ring-zinc-700' 
+                                : 'hover:bg-zinc-900/50'
+                            }`}
+                            onClick={() => {
+                              onSelectCharacter(character);
+                              setMobileMenuOpen(false);
+                            }}
+                          >
+                            <div className="flex items-center flex-1">
+                              <div className="relative">
+                                <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full overflow-hidden border border-zinc-800 flex items-center justify-center bg-zinc-900">
+                                  <img 
+                                    src={character.avatar} 
+                                    alt={character.name}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      e.currentTarget.src = `https://api.dicebear.com/7.x/personas/svg?seed=${character.name}`;
+                                    }}
+                                  />
+                                </div>
+                                {isSelected && (
+                                  <div className={`absolute -bottom-1 -right-1 h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-gradient-to-r ${theme.primary} ring-1 ring-black`}></div>
+                                )}
+                              </div>
+                              <div className="ml-3 text-left">
+                                <div className="text-xs sm:text-sm font-medium text-white">{character.name}</div>
+                                <div className="text-[10px] sm:text-xs text-zinc-400 line-clamp-1">{character.description}</div>
+                              </div>
                             </div>
-                            {isSelected && (
-                              <div className={`absolute -bottom-1 -right-1 h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-gradient-to-r ${theme.primary} ring-1 ring-black`}></div>
-                            )}
-                          </div>
-                          <div className="ml-3 text-left">
-                            <div className="text-xs sm:text-sm font-medium text-white">{character.name}</div>
-                            <div className="text-[10px] sm:text-xs text-zinc-400 line-clamp-1">{character.description}</div>
-                          </div>
-                        </div>
-                      </button>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" sideOffset={8}>{character.description}</TooltipContent>
+                      </Tooltip>
                     </motion.div>
                   );
                 })}
